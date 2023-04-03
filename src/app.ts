@@ -1,16 +1,14 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { pool } from "./db/db";
-import { typeDef } from "./graphql/schemas/currency";
-import { resolver } from "./graphql/resolvers/currency";
+import { schema } from "./graphql/schema";
 
 async function main() {
   const app = express();
 
   // Create a new Apollo Server instance
   const server = new ApolloServer({
-    typeDefs: typeDef,
-    resolvers: resolver,
+    schema: schema,
     context: { pool }, // Pass the database pool to the resolvers through the context object
   });
 

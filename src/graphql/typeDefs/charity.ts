@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 
-export const typeDef = gql`
+const typeDef = gql`
   type Charity {
     id: ID!
     charity_name: String!
@@ -13,7 +13,7 @@ export const typeDef = gql`
   }
 
   extend type Query {
-    charities: [Charity!]!
+    charities: [Charity]!
   }
 
   extend type Mutation {
@@ -27,3 +27,5 @@ export const typeDef = gql`
     ): Charity!
   }
 `;
+
+export default typeDef;

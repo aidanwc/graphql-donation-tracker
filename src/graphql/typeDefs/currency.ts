@@ -1,15 +1,17 @@
 import { gql } from "apollo-server-express";
 
-export const typeDef = gql`
+const typeDef = gql`
   type Currency {
     currency_code: String!
   }
 
-  type Query {
-    currencies: [Currency!]!
+  extend type Query {
+    currencies: [Currency]!
   }
 
-  type Mutation {
+  extend type Mutation {
     createCurrency(currency_code: String!): Currency!
   }
 `;
+
+export default typeDef;
