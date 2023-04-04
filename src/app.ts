@@ -1,7 +1,8 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { pool } from "./db/db";
 import { schema } from "./graphql/schema";
+import { sequelize } from "./db/database";
+import { initModels } from "./db/models/init-models";
 
 const startServer = async () => {
   const app = express();
@@ -9,8 +10,10 @@ const startServer = async () => {
   // Create a new Apollo Server instance
   const server = new ApolloServer({
     schema: schema,
-    context: { pool }, // Pass the database pool to the resolvers through the context object
   });
+
+  //init db
+  initModels(sequelize);
 
   await server.start();
 

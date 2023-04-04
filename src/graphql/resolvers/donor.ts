@@ -1,11 +1,11 @@
-import { Context, Donor } from "../types";
+import { donor, donorCreationAttributes } from "../../db/models/init-models";
 
 const resolvers = {
   Query: {
-    donors: async (_: any, __: any, { pool }: Context) => {
+    donors: async () => {
       try {
-        const { rows } = await pool.query("SELECT * FROM donor");
-        return rows;
+        const donors = await donor.findAll();
+        return donors;
       } catch (error) {
         console.error(`Error fetching donors: ${error}`);
         throw new Error("Failed to fetch donors.");
@@ -13,18 +13,10 @@ const resolvers = {
     },
   },
   Mutation: {
-    createDonor: async (
-      _: any,
-      { email, first_name, last_name, address }: Donor,
-      { pool }: Context
-    ) => {
+    createDonor: async (_: any, attr: donorCreationAttributes) => {
       try {
-        const values = [email, first_name, last_name, address];
-        const { rows } = await pool.query(
-          "INSERT INTO Donor (email, first_name, last_name, address) VALUES ($1, $2, $3, $4) RETURNING *",
-          values
-        );
-        return rows[0];
+        const newDonor = await donor.create(attr);
+        return newDonor;
       } catch (error) {
         console.error(`Error creating Donor: ${error}`);
         throw new Error("Failed to create Donor");

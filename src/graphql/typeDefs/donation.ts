@@ -17,10 +17,10 @@ const typeDef = gql`
 
   extend type Mutation {
     createDonation(
-      donor_id: ID!
-      charity_id: ID!
+      donor: ID!
+      charity: ID!
       amount: Float!
-      currency_code: String!
+      currency: String!
       donated_on: String
     ): Donation!
   }

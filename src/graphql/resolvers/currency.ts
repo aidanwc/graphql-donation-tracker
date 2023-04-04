@@ -1,11 +1,14 @@
-import { Currency, Context } from "../types";
+import {
+  currency,
+  currencyCreationAttributes,
+} from "../../db/models/init-models";
 
 const resolvers = {
   Query: {
-    currencies: async (_: any, __: any, { pool }: Context) => {
+    currencies: async () => {
       try {
-        const { rows } = await pool.query("SELECT * FROM currency");
-        return rows;
+        const currencies = await currency.findAll();
+        return currencies;
       } catch (error) {
         console.error(`Error fetching currencies: ${error}`);
         throw new Error("Failed to fetch currencies.");
@@ -13,18 +16,10 @@ const resolvers = {
     },
   },
   Mutation: {
-    createCurrency: async (
-      _: any,
-      { currency_code }: Currency,
-      { pool }: Context
-    ) => {
+    createCurrency: async (_: any, attr: currencyCreationAttributes) => {
       try {
-        const values = [currency_code];
-        const { rows } = await pool.query(
-          "INSERT INTO currency (currency_code) VALUES ($1) RETURNING *",
-          values
-        );
-        return rows[0];
+        const newCurrency = await currency.create(attr);
+        return newCurrency;
       } catch (error) {
         console.error(`Error creating currency: ${error}`);
         throw new Error("Failed to create currency");
