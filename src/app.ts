@@ -3,7 +3,7 @@ import { ApolloServer } from "apollo-server-express";
 import { pool } from "./db/db";
 import { schema } from "./graphql/schema";
 
-async function main() {
+const startServer = async () => {
   const app = express();
 
   // Create a new Apollo Server instance
@@ -24,6 +24,6 @@ async function main() {
       `GraphQL server running at http://localhost:${port}${server.graphqlPath}`
     );
   });
-}
+};
 
-main();
+startServer();

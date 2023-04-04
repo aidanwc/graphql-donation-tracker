@@ -1,4 +1,5 @@
-import { Donation, Context } from "../types/types";
+import { Donation, Context } from "../types";
+
 const resolvers = {
   Query: {
     donations: async (_: any, __: any, { pool }: Context) => {
@@ -11,6 +12,7 @@ const resolvers = {
       }
     },
   },
+
   Mutation: {
     createDonation: async (
       _: any,
@@ -35,6 +37,7 @@ const resolvers = {
       }
     },
   },
+
   Donation: {
     donor: async (parent: any, _: any, { pool }: Context) => {
       try {
@@ -47,6 +50,7 @@ const resolvers = {
         throw new Error("Failed to fetch donor.");
       }
     },
+
     charity: async (parent: any, _: any, { pool }: Context) => {
       try {
         const { rows } = await pool.query(
@@ -59,6 +63,7 @@ const resolvers = {
         throw new Error("Failed to fetch charity.");
       }
     },
+
     currency: async (parent: any, _: any, { pool }: Context) => {
       try {
         const { rows } = await pool.query(

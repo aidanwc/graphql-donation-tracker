@@ -1,4 +1,4 @@
-import { Context, Donor } from "../types/types";
+import { Context, Donor } from "../types";
 
 const resolvers = {
   Query: {

@@ -1,4 +1,4 @@
-import { Charity, Context } from "../types/types";
+import { Charity, Context } from "../types";
 
 const resolvers = {
   Query: {

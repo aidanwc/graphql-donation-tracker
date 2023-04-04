@@ -1,4 +1,4 @@
-import { Currency, Context } from "../types/types";
+import { Currency, Context } from "../types";
 
 const resolvers = {
   Query: {
